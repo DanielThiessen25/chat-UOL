@@ -40,8 +40,10 @@ function atualizar(conteudo){
         var elemento = document.querySelector(".mensagens");
         elemento.innerHTML += 
         `<div class="item ${conteudo.data[i].type}">
-            <h3>${conteudo.data[i].time} ${conteudo.data[i].from} ${conteudo.data[i].text}</h3>
+            <h3>(${conteudo.data[i].time})</h3> <h2>${conteudo.data[i].from}</h2> ${conteudo.data[i].text}
         </div>`;    
+        var visivel = elemento.lastChild;
+        visivel.scrollIntoView();
     }
    
 }

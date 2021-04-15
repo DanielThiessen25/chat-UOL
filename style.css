@@ -84,15 +84,15 @@ body {
     color: #AAAAAA;
 }
 
-.entrou-saiu {
+.status {
     background-color: #DCDCDC;
     
 }
 
-.geral {
+.message {
     background-color: #FFFFFF;
 }
 
-.reservado {
+.private_message {
     background-color: #FFDEDE;
 }

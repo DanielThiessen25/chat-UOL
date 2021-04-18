@@ -242,6 +242,11 @@ button {
 .check {
     color: #28BB25;
     font-weight: bolder;
+    opacity: 0;
+}
+
+.selecionado {
+    opacity: 1;
 }
 
 .visibilidade {

@@ -118,7 +118,7 @@ function addParticipantes(conteudo){
             <ion-icon name="person-circle"></ion-icon>
             <h3>${conteudo.data[i].name}</h3>
         </div>
-        <ion-icon name="checkmark-sharp" class="check apagado"></ion-icon>
+        <ion-icon name="checkmark-sharp" class="check alvo"></ion-icon>
     </div>`;      
 
     }
@@ -126,11 +126,24 @@ function addParticipantes(conteudo){
 
 function escolherUsuario (elemento){
 
-    const filho = elemento.lastElementChild;
-    filho.classList.remove("apagado");
+    const resetar = document.querySelector(".selecionado.alvo");
+    resetar.classList.remove("selecionado");
 
+    const ultimofilho = elemento.lastElementChild;
+    ultimofilho.classList.add("selecionado");
 
 }
+
+function escolherTipo (elemento){
+
+    const resetar = document.querySelector(".selecionado.tipo");
+    resetar.classList.remove("selecionado");
+
+    const ultimofilho = elemento.lastElementChild;
+    ultimofilho.classList.add("selecionado");
+
+}
+
 
 function esconderLateral(){
     const fundo = document.querySelector(".pelicula");
@@ -146,9 +159,8 @@ function esconderLateral(){
         <ion-icon name="people"></ion-icon>
         <h3>Todos</h3>
     </div>
-    <ion-icon name="checkmark-sharp" class="check apagado"></ion-icon>
+    <ion-icon name="checkmark-sharp" class="check"></ion-icon>
 </div>`; 
 }
 
-var selecionados = ["Todos", "Público"];
 

@@ -36,7 +36,7 @@ function buscar() {
 
 function atualizar(conteudo){
     console.log(conteudo.data[1]);
-    for(let i=0; i<conteudo.data.length; i++){
+    for(let i=conteudo.data.length-30; i<conteudo.data.length; i++){
         var elemento = document.querySelector(".mensagens");
         elemento.innerHTML += 
         `<div class="item ${conteudo.data[i].type}">
@@ -49,4 +49,35 @@ function atualizar(conteudo){
 }
 
 const atualizador = setInterval(buscar, 3000);
+
+
+function enviar(){
+    const mensagemInput = document.querySelector(".mensagem");
+
+    const mensagemConteudo = mensagemInput.value;
+
+    const mensagemobj = {
+        from: infoNome.name,
+        to: "Todos",
+        text: mensagemConteudo,
+        type: "message" // ou "private_message" para o bônus
+    };
+
+    const Enviarmensagem = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages', mensagemobj);
+    Enviarmensagem.then(mensagemSucesso);
+    Enviarmensagem.catch(mensagemErro);
+}
+
+function  mensagemSucesso(sucesso){
+    const statusCode = resposta.status;
+	console.log(statusCode);
+}
+
+function mensagemErro(erro){
+    const statusCode = erro.response.status;
+	console.log(statusCode);
+
+}
+
+
 

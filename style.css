@@ -57,14 +57,23 @@ body {
     font-size: 30px;
 }
 
-.rodape h2 {
+
+input {
+    border: none;
+    width: 75%;
     font-family: "Roboto", sans-serif;
     font-style: italic;
     font-weight: normal;
     font-size: 18px;
     line-height: 21px;
     color: #000000;
-}
+  }
+
+  input:focus-visible {
+    border: none;
+    border-bottom: 2px solid rgb(42, 197, 218);
+  }
+
 
 .item {
     margin-top: 6px;
@@ -132,3 +141,4 @@ body {
     z-index: 0;
     
 }
+

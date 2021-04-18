@@ -13,7 +13,7 @@ entrar();
 
 function nomeErro(erro) {
     const statusCode = erro.response.status;
-    if(statusCode != 200){
+    if (statusCode != 200) {
         alert("Esse nome de usuário já foi escolhido! Tente novamente");
         entrar();
     }
@@ -25,8 +25,8 @@ function nomeSucesso(sucesso) {
 
 const conexao = setInterval(manterConexao, 5000);
 
-function manterConexao(){
-        const status = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/status', infoNome);
+function manterConexao() {
+    const status = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/status', infoNome);
 }
 
 function buscar() {
@@ -34,18 +34,34 @@ function buscar() {
     buscar.then(atualizar);
 }
 
-function atualizar(conteudo){
+function atualizar(conteudo) {
+    var resetar = document.querySelector(".mensagens");
+    resetar.innerHTML = '';
+
+
     console.log(conteudo.data[1]);
-    for(let i=conteudo.data.length-30; i<conteudo.data.length; i++){
-        var elemento = document.querySelector(".mensagens");
-        elemento.innerHTML += 
-        `<div class="item ${conteudo.data[i].type}">
+    for (let i = conteudo.data.length - 11; i < conteudo.data.length; i++) {
+        if (conteudo.data[i].type == "private_message" && conteudo.data[i].to == infoNome.name) {
+            var elemento = document.querySelector(".mensagens");
+            elemento.innerHTML +=
+                `<div class="item ${conteudo.data[i].type}">
             <h3>(${conteudo.data[i].time})</h3> <h2>${conteudo.data[i].from}</h2> ${conteudo.data[i].text}
-        </div>`;    
-        var visivel = elemento.lastChild;
-        visivel.scrollIntoView();
+        </div>`;
+            var visivel = elemento.lastChild;
+            visivel.scrollIntoView();
+        }
+        else{
+            var elemento = document.querySelector(".mensagens");
+            elemento.innerHTML +=
+                `<div class="item ${conteudo.data[i].type}">
+                <h3>(${conteudo.data[i].time})</h3> <h2>${conteudo.data[i].from}</h2> ${conteudo.data[i].text}
+            </div>`;
+            var visivel = elemento.lastChild;
+            visivel.scrollIntoView();
+        }
+        
     }
-   
+
 }
 
 const atualizador = setInterval(buscar, 3000);
@@ -54,8 +70,8 @@ const atualizador = setInterval(buscar, 3000);
 
 var inputEnter = document.querySelector(".rodape").firstElementChild;
 
-inputEnter.addEventListener("keyup", function(event){
-    if(event.keyCode === 13){
+inputEnter.addEventListener("keyup", function (event) {
+    if (event.keyCode === 13) {
         event.preventDefault();
         document.querySelector(".rodape").lastElementChild.click();
     }
@@ -63,7 +79,7 @@ inputEnter.addEventListener("keyup", function(event){
 );
 
 
-function enviar(){
+function enviar() {
     const mensagemInput = document.querySelector(".mensagem");
 
     const mensagemConteudo = mensagemInput.value;
@@ -85,19 +101,19 @@ function enviar(){
 
 }
 
-function  mensagemSucesso(sucesso){
+function mensagemSucesso(sucesso) {
     const statusCode = sucesso.status;
-	console.log(statusCode);
+    console.log(statusCode);
     buscar();
 }
 
-function mensagemErro(erro){
+function mensagemErro(erro) {
     const statusCode = erro.response.status;
-	console.log(statusCode);
+    console.log(statusCode);
 
 }
 
-function participantes(){
+function participantes() {
     const fundo = document.querySelector(".pelicula");
     fundo.classList.add("sombreado");
 
@@ -109,22 +125,22 @@ function participantes(){
     listaUsuarios.then(addParticipantes);
 }
 
-function addParticipantes(conteudo){
-    for(let i=0; i<conteudo.data.length; i++){
+function addParticipantes(conteudo) {
+    for (let i = 0; i < conteudo.data.length; i++) {
         var elemento = document.querySelector(".pessoas");
-        elemento.innerHTML += 
-        `<div class="opcao" onclick="escolherUsuario(this)">
+        elemento.innerHTML +=
+            `<div class="opcao" onclick="escolherUsuario(this)">
         <div class="seletor">
             <ion-icon name="person-circle"></ion-icon>
             <h3>${conteudo.data[i].name}</h3>
         </div>
         <ion-icon name="checkmark-sharp" class="check alvo"></ion-icon>
-    </div>`;      
+    </div>`;
 
     }
 }
 
-function escolherUsuario (elemento){
+function escolherUsuario(elemento) {
 
     const resetar = document.querySelector(".selecionado.alvo");
     resetar.classList.remove("selecionado");
@@ -134,7 +150,7 @@ function escolherUsuario (elemento){
 
 }
 
-function escolherTipo (elemento){
+function escolherTipo(elemento) {
 
     const resetar = document.querySelector(".selecionado.tipo");
     resetar.classList.remove("selecionado");
@@ -145,7 +161,7 @@ function escolherTipo (elemento){
 }
 
 
-function esconderLateral(){
+function esconderLateral() {
     const fundo = document.querySelector(".pelicula");
     fundo.classList.remove("sombreado");
 
@@ -153,14 +169,14 @@ function esconderLateral(){
     mostrar.classList.remove("mostrar");
 
     var limpar = document.querySelector(".pessoas");
-    limpar.innerHTML = 
-    `<div class="opcao" onclick="escolherUsuario(this)">
+    limpar.innerHTML =
+        `<div class="opcao" onclick="escolherUsuario(this)">
     <div class="seletor">
         <ion-icon name="people"></ion-icon>
         <h3>Todos</h3>
     </div>
     <ion-icon name="checkmark-sharp" class="check"></ion-icon>
-</div>`; 
+</div>`;
 }
 
 

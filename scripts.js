@@ -50,6 +50,18 @@ function atualizar(conteudo){
 
 const atualizador = setInterval(buscar, 3000);
 
+// CONFIGURAR O ENTER PARA ENVIAR MENSAGEM
+
+var inputEnter = document.querySelector(".rodape").firstElementChild;
+
+inputEnter.addEventListener("keyup", function(event){
+    if(event.keyCode === 13){
+        event.preventDefault();
+        document.querySelector(".rodape").lastElementChild.click();
+    }
+}
+);
+
 
 function enviar(){
     const mensagemInput = document.querySelector(".mensagem");
@@ -66,11 +78,17 @@ function enviar(){
     const Enviarmensagem = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages', mensagemobj);
     Enviarmensagem.then(mensagemSucesso);
     Enviarmensagem.catch(mensagemErro);
+
+    const limpador = document.querySelector(".mensagem");
+    limpador.value = '';
+
+
 }
 
 function  mensagemSucesso(sucesso){
-    const statusCode = resposta.status;
+    const statusCode = sucesso.status;
 	console.log(statusCode);
+    buscar();
 }
 
 function mensagemErro(erro){
@@ -79,5 +97,58 @@ function mensagemErro(erro){
 
 }
 
+function participantes(){
+    const fundo = document.querySelector(".pelicula");
+    fundo.classList.add("sombreado");
 
+    const mostrar = document.querySelector(".lateral");
+    mostrar.classList.add("mostrar");
+
+    const listaUsuarios = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/participants');
+
+    listaUsuarios.then(addParticipantes);
+}
+
+function addParticipantes(conteudo){
+    for(let i=0; i<conteudo.data.length; i++){
+        var elemento = document.querySelector(".pessoas");
+        elemento.innerHTML += 
+        `<div class="opcao" onclick="escolherUsuario(this)">
+        <div class="seletor">
+            <ion-icon name="person-circle"></ion-icon>
+            <h3>${conteudo.data[i].name}</h3>
+        </div>
+        <ion-icon name="checkmark-sharp" class="check apagado"></ion-icon>
+    </div>`;      
+
+    }
+}
+
+function escolherUsuario (elemento){
+
+    const filho = elemento.lastElementChild;
+    filho.classList.remove("apagado");
+
+
+}
+
+function esconderLateral(){
+    const fundo = document.querySelector(".pelicula");
+    fundo.classList.remove("sombreado");
+
+    const mostrar = document.querySelector(".lateral");
+    mostrar.classList.remove("mostrar");
+
+    var limpar = document.querySelector(".pessoas");
+    limpar.innerHTML = 
+    `<div class="opcao" onclick="escolherUsuario(this)">
+    <div class="seletor">
+        <ion-icon name="people"></ion-icon>
+        <h3>Todos</h3>
+    </div>
+    <ion-icon name="checkmark-sharp" class="check apagado"></ion-icon>
+</div>`; 
+}
+
+var selecionados = ["Todos", "Público"];
 

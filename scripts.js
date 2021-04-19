@@ -50,7 +50,7 @@ function atualizar(conteudo) {
             var visivel = elemento.lastChild;
             visivel.scrollIntoView();
         }
-        else{
+        else {
             var elemento = document.querySelector(".mensagens");
             elemento.innerHTML +=
                 `<div class="item ${conteudo.data[i].type}">
@@ -59,7 +59,7 @@ function atualizar(conteudo) {
             var visivel = elemento.lastChild;
             visivel.scrollIntoView();
         }
-        
+
     }
 
 }
@@ -110,6 +110,8 @@ function mensagemSucesso(sucesso) {
 function mensagemErro(erro) {
     const statusCode = erro.response.status;
     console.log(statusCode);
+    alert("ERRO! USUÁRIO DESCONECTADO");
+    window.location.reload();
 
 }
 
